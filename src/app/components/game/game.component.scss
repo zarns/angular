@@ -1,0 +1,134 @@
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+  p {
+    margin-top: 16px;
+    font-size: 16px;
+    color: #ffffff;
+  }
+}
+
+.error-container {
+  color: #ff5252;
+}
+
+.game-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Explicitly remove any header */
+.game-header {
+  display: none;
+  height: 0;
+}
+
+.main-game-area {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: #000000;
+  padding-top: 0; /* Remove top padding to maximize space */
+  
+  /* Make board fill available space while staying centered */
+  app-board {
+    flex: 1;
+    width: 100%;
+    height: 100%; /* Ensure full height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Position actions toolbar at the bottom, overlapping the board */
+  app-actions-toolbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+  }
+}
+
+/* Drawer backdrop for mobile view */
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 900;
+  display: none;
+  
+  &.visible {
+    display: block;
+  }
+}
+
+/* Basic Responsive styles */
+@media (max-width: 991px) {
+  .main-game-area {
+    app-board {
+      max-width: 100vw;
+      max-height: 70vh;
+    }
+  }
+  
+  /* Simplified mobile adjustments for drawers */
+  .left-drawer,
+  .right-drawer {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 1000;
+    /* Width and display handled by component logic */
+  }
+  
+  .left-drawer {
+    left: 0;
+  }
+  
+  .right-drawer {
+    right: 0;
+  }
+  
+  .actions-area {
+    padding: 8px;
+    height: auto;
+    
+    .actions-toolbar {
+      justify-content: flex-end;
+    }
+  }
+}
+
+/* REMOVED .side-panel, .player-list, .player-card and nested styles (Assume handled by drawers) */
+/* REMOVED .left-drawer detailed desktop styles (Assume handled by component) */
+/* REMOVED .right-drawer detailed desktop styles (Assume handled by component) */
+/* REMOVED .analysis-box, .probability-bars, .game-info styles */
+/* REMOVED .actions-area styles (Simplified in responsive block) */
+/* REMOVED .hex-tile, .node, .edge, .robber styles (Handled by specific components) */
+/* REMOVED .pulse animation (Assuming handled elsewhere if needed) */ 

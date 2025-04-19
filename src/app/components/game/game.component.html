@@ -1,0 +1,88 @@
+<div class="game-container">
+  <!-- Drawer components -->
+  <app-left-drawer 
+    [gameState]="gameState" 
+    [isOpen]="isLeftDrawerOpen"
+    [isMobile]="isMobileView">
+  </app-left-drawer>
+  
+  <app-right-drawer
+    [gameState]="gameState"
+    [gameId]="gameId"
+    [isOpen]="isRightDrawerOpen"
+    [isMobile]="isMobileView">
+  </app-right-drawer>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner [diameter]="40" color="accent"></mat-spinner>
+    <p>Loading game...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <p>Error: {{ error }}</p>
+  </div>
+
+  <!-- Game Content -->
+  <div *ngIf="!isLoading && !error && gameState" class="game-content">
+    <!-- Main Game Area - Header removed as requested -->
+    <div class="main-game-area">
+      <!-- Board Component -->
+      <app-board 
+        [gameState]="gameState && gameState.game ? gameState.game.board : null" 
+        [nodeActions]="nodeActions"
+        [edgeActions]="edgeActions"
+        [isMovingRobber]="isMovingRobber"
+        (nodeClick)="onNodeClick($event)"
+        (edgeClick)="onEdgeClick($event)"
+        (hexClick)="onHexClick($event)">
+      </app-board>
+
+      <!-- Actions Toolbar Component -->
+      <app-actions-toolbar
+        [gameState]="gameState"
+        [humanPlayer]="getHumanPlayer()"
+        [isBotThinking]="isBotThinking"
+        [isBotTurn]="isBotTurn"
+        [isGameOver]="isGameOver"
+        [isRoll]="isRoll"
+        [isBuildingSettlement]="isBuildingSettlement"
+        [isBuildingCity]="isBuildingCity"
+        [isBuildingRoad]="isBuildingRoad"
+        [canUseCards]="true"
+        [canPlayMonopoly]="true"
+        [canPlayYearOfPlenty]="true"
+        [canPlayRoadBuilding]="true"
+        [canPlayKnight]="true"
+        [canBuild]="true"
+        [canBuyDevCard]="true"
+        [canBuildCity]="true"
+        [canBuildSettlement]="true"
+        [canBuildRoad]="true"
+        [trades]="trades"
+        [isMainActionDisabled]="false"
+        (useCard)="onUseCard($event)"
+        (build)="onBuild($event)"
+        (trade)="onTrade($event)"
+        (mainAction)="onMainAction()">
+      </app-actions-toolbar>
+    </div>
+  </div>
+
+  <!-- Backdrop for mobile drawer -->
+  <div 
+    class="drawer-backdrop" 
+    [class.visible]="(isLeftDrawerOpen || isRightDrawerOpen) && isMobileView" 
+    (click)="closeDrawers()">
+  </div>
+
+  <!-- Resource Selector Dialog -->
+  <app-resource-selector
+    [open]="resourceSelectorOpen"
+    [options]="resourceSelectorOptions"
+    [mode]="resourceSelectorMode"
+    (onClose)="onResourceSelectorClose()"
+    (onSelect)="onResourceSelected($event)">
+  </app-resource-selector>
+</div> 

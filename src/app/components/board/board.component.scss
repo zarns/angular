@@ -1,0 +1,129 @@
+.board-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #101010;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(40, 40, 40, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%),
+    linear-gradient(rgba(0, 0, 20, 0.6), rgba(0, 0, 20, 0.6));
+  padding: 40px 0;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+}
+
+.game-board {
+  position: relative;
+  transform-origin: center center;
+  transition: all 0.5s ease;
+}
+
+.tile {
+  position: absolute;
+  width: 120px;
+  height: 104px;
+  margin-left: -60px;
+  margin-top: -52px;
+  transition: all 0.2s ease;
+  
+  .tile-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  
+  .number-token {
+    position: relative;
+    z-index: 6;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 22px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+    border: 2px solid #fff;
+    
+    &.high-probability {
+      color: #d32f2f;
+      font-weight: 900;
+      border-color: #f8d7da;
+      background-color: #fff9f9;
+    }
+  }
+  
+  .port-indicator {
+    display: none; /* Hide port indicator which might be causing an oval shape */
+  }
+}
+
+.edge {
+  position: absolute;
+  z-index: 15;
+  pointer-events: auto;
+  
+  &.buildable {
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+  }
+}
+
+.node {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  z-index: 4;
+  pointer-events: auto;
+  
+  &.buildable {
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+    z-index: 10;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  &.settlement {
+    z-index: 15;
+  }
+  
+  &.city {
+    z-index: 15;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .board-container {
+    padding: 20px 0;
+  }
+}
+
+// Support for zooming and panning if needed
+.zoomed {
+  transform-origin: center;
+  transition: transform 0.3s ease-out;
+} 

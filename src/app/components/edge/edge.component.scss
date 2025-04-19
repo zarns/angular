@@ -1,0 +1,91 @@
+.edge {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 8px; /* Reduced height for smaller edges */
+  border: none;
+  z-index: 15;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    z-index: 16;
+  }
+  
+  /* Debug label styling */
+  .debug-label {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 9px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 1px 3px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 100;
+  }
+}
+
+.road {
+  position: absolute;
+  border: 1px solid #333;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  
+  // Player colors with minimal styling
+  &.red {
+    background-color: #f44336;
+  }
+  
+  &.blue {
+    background-color: #2196f3;
+  }
+  
+  &.white {
+    background-color: #ffffff;
+  }
+  
+  &.orange {
+    background-color: #ff9800;
+  }
+}
+
+.pulse {
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 90%;
+  height: 90%;
+  
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+} 
